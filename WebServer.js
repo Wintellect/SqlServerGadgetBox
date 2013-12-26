@@ -58,10 +58,6 @@ gadgetCatalogService
                         {});
                 });
 
-//                app.use(function(req, res) {
-//                    res.sendfile(__dirname + '/app/index.html');
-//                });
-
 //                app.use("/" + item.identifier, express.static([
 //                    __dirname,
 //                    item.basePath,
