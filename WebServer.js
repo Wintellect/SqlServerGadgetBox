@@ -11,6 +11,11 @@ var portNum = 8888,
         "./api/gadgetCatalog.js"
     ];
 
+// Changing swig variables to {- ... -} instead of {{ ... }} since AngularJS uses these characters.
+swig.setDefaults({
+    varControls: [ "{-", "-}" ]
+});
+
 app.set('port', portNum);
 
 app.engine('html', swig.renderFile);
@@ -58,11 +63,11 @@ gadgetCatalogService
                         {});
                 });
 
-//                app.use("/" + item.identifier, express.static([
-//                    __dirname,
-//                    item.basePath,
-//                    'client'
-//                ].join('/')));
+                app.use("/" + item.identifier, express.static([
+                    __dirname,
+                    item.basePath,
+                    'client'
+                ].join('/')));
             });
 
             _.each(apiList, function(apiFileName) {

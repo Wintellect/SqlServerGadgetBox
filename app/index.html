@@ -5,17 +5,21 @@
 
 {% block content %}
 
-    <div class="container" ng-ctrl="indexCtrl">
+    <div class="container" ng-controller="indexCtrl">
         <div class="page-header">
             <h1>Gadgets</h1>
         </div>
 
         <div class="row">
-            <div class="col-lg-7">
-                one.
-            </div>
             <div class="col-lg-5">
-                two.
+                <div class="row" ng-repeat="g in gadgets">
+                    <div class="col-lg-12">
+                        <a href="{{g.url}}" ng-mouseover="setDescription(g.description)">{{g.name}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div ng-include="descriptionUrl"></div>
             </div>
         </div>
 
@@ -23,6 +27,6 @@
 
 {% endblock %}
 
-{% block header %}
+{% block footer %}
     <script src="/js/mainModule.js"></script>
 {% endblock %}
