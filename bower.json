@@ -1,0 +1,20 @@
+{
+  "name": "SqlServerGadgetBox",
+  "version": "0.1.0",
+  "authors": [
+    "Dave F. Baskin"
+  ],
+  "description": "NodeJS Gadgets for Microsoft SQL Server.",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular": "~1.2.4",
+    "angular-route": "~1.2.4",
+    "bootstrap": "~3.0.3",
+    "jquery": "~2.0.3"
+  }
+}

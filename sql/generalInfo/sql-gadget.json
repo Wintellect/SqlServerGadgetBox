@@ -1,0 +1,7 @@
+{
+    "name": "General Information",
+    "description": "description.html",
+    "apiList": [
+        "api.js"
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "connections": [
+        {
+            "name": "Local SQL Server",
+            "connectionString": "data source=.;initial catalog=master;integrated security=true;"
+        }
+    ]
+}
