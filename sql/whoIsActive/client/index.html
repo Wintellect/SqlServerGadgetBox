@@ -1,6 +1,7 @@
 {% extends '../../../views/layout.html' %}
 
 {% block header %}
+<link rel="stylesheet" href="/whoIsActive/styles.css">
 {% endblock %}
 
 {% block content %}
@@ -9,10 +10,9 @@
 
     <div class="row">
         <div class="col-lg-7">
-            one.
+            {{data | json}}
         </div>
         <div class="col-lg-5">
-            {{pageInfo.selectedConnection | json}}
         </div>
     </div>
 
@@ -21,5 +21,7 @@
 {% endblock %}
 
 {% block footer %}
+<script src="/bower/d3/d3.js" charset="utf-8"></script>
+<script src="/socket.io/socket.io.js"></script>
 <script src="/whoIsActive/module.js"></script>
 {% endblock %}

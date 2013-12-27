@@ -5,6 +5,7 @@ var portNum = 8888,
     express = require('express'),
     swig = require('swig'),
     http = require('http'),
+    socketio = require('socket.io'),
     gadgetCatalogService = require('./modules/gadgetCatalogService.js'),
     app = express(),
     apiList = [
@@ -71,14 +72,26 @@ gadgetCatalogService
                 ].join('/')));
             });
 
+            var handlerList = [];
             _.each(apiList, function(apiFileName) {
-                require(apiFileName).register(app);
+                var handler = require(apiFileName).register(app);
+                if(handler) {
+                    handlerList.push(handler);
+                }
             });
 
-            http.createServer(app)
-                .listen(app.get('port'), function() {
-                    console.log("Listening on port " + app.get('port'));
-                    console.log("http://localhost:" + app.get('port') + "/");
-                });
+            var server = http.createServer(app),
+                io = socketio.listen(server);
+
+            server.listen(app.get('port'), function() {
+                console.log("Listening on port " + app.get('port'));
+                console.log("http://localhost:" + app.get('port') + "/");
+            });
+
+            _.each(handlerList, function(handler) {
+                if(_.isFunction(handler.initializeSockets)) {
+                    handler.initializeSockets(io);
+                }
+            });
         }
     });
