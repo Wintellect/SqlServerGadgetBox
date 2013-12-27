@@ -8,16 +8,24 @@ angular
             '$http',
             function($scope, $http) {
 
+                var socket;
+
                 $scope.pageInfo.title = "Who Is Active?";
 
                 $scope.data = { };
 
-                var socket = io.connect('');
+                socket = io.connect('/whoIsActive');
                 socket.on('whoIsActive', function (data) {
-                    console.log(data);
                     $scope.$apply(function() {
                         $scope.data = data;
                     });
+                });
+
+                $scope.$watch("pageInfo.selectedConnection", function(connection){
+                    if(connection && connection.id) {
+                        $scope.data = { };
+                        socket.emit('setConnection', { connection: connection.id });
+                    }
                 });
             }
         ]
