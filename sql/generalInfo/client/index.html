@@ -5,17 +5,66 @@
 
 {% block content %}
 
-<div class="container" ng-ctrl="indexCtrl">
+<div class="container" ng-controller="infoCtrl">
+
     <div class="page-header">
         <h1>SQL General Information</h1>
     </div>
 
     <div class="row">
-        <div class="col-lg-7">
-            one.
+        <div class="col-lg-12">
+            <h4>SQL Server Product Information</h4>
         </div>
+    </div>
+
+    <div class="row">
         <div class="col-lg-5">
-            two.
+            Description:
+        </div>
+        <div class="col-lg-7">
+            {{version.ProductDescription}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-5">
+            Version Number:
+        </div>
+        <div class="col-lg-7">
+            {{version.ProductVersionNumber}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-5">
+            Product Level:
+        </div>
+        <div class="col-lg-7">
+            {{version.ProductLevel}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-5">
+            Product Edition:
+        </div>
+        <div class="col-lg-7">
+            {{version.ProductEdition}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h4>SQL Server Properties</h4>
+        </div>
+    </div>
+
+    <div class="row" ng-repeat="property in properties">
+        <div class="col-lg-5">
+            {{property.Name}}
+        </div>
+        <div class="col-lg-7">
+            {{property.Character_Value}}
         </div>
     </div>
 
@@ -23,5 +72,6 @@
 
 {% endblock %}
 
-{% block header %}
+{% block footer %}
+<script src="/generalInfo/module.js"></script>
 {% endblock %}
