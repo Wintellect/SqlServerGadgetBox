@@ -56,6 +56,16 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger" ng-show="pageInfo.errorMessage">
+                        <button type="button" class="close" aria-hidden="true" ng-click=" pageInfo.errorMessage = '' ">&times;</button>
+                        <strong>Error!</strong> {{pageInfo.errorMessage}}
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 

@@ -10,7 +10,8 @@ angular
 
                 $scope.pageInfo = {
                     title: "",
-                    selectedConnection: null
+                    selectedConnection: null,
+                    errorMessage: ""
                 };
 
                 $http(
