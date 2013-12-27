@@ -1,4 +1,8 @@
 {
     "name": "Who Is Active Tool",
-    "description": "description.html"
+    "description": "description.html",
+    "apiList": [
+        "api.js",
+        "sqlScript.js"
+    ]
 }
