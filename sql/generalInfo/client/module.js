@@ -1,12 +1,14 @@
 
 angular
-    .module('main', [])
+    .module('main', ['common'])
     .controller(
         'infoCtrl',
         [
             '$scope',
             '$http',
             function($scope, $http) {
+
+                $scope.pageInfo.title = "SQL General Information";
 
                 $http(
                     {

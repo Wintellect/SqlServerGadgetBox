@@ -3,6 +3,10 @@
         {
             "name": "Local SQL Server",
             "connectionString": "data source=.;initial catalog=master;integrated security=true;"
+        },
+        {
+            "name": "A Remote SQL Server",
+            "connectionString": "data source=REMOTE-SERVER-NAME;initial catalog=master;integrated security=true;"
         }
     ]
 }

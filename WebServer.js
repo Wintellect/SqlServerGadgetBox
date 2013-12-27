@@ -8,7 +8,8 @@ var portNum = 8888,
     gadgetCatalogService = require('./modules/gadgetCatalogService.js'),
     app = express(),
     apiList = [
-        "./api/gadgetCatalog.js"
+        "./api/gadgetCatalog.js",
+        "./api/connections.js"
     ];
 
 // Changing swig variables to {- ... -} instead of {{ ... }} since AngularJS uses these characters.

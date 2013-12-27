@@ -1,12 +1,14 @@
 
 angular
-    .module('main', [])
+    .module('main', ['common'])
     .controller(
         'indexCtrl',
         [
             '$scope',
             '$http',
             function($scope, $http) {
+
+                $scope.pageInfo.title = "Gadgets";
 
                 $scope.descriptionUrl = null;
                 $scope.setDescription = function(url) {

@@ -5,17 +5,14 @@
 
 {% block content %}
 
-<div class="container" ng-ctrl="indexCtrl">
-    <div class="page-header">
-        <h1>Who Is Active?</h1>
-    </div>
+<div class="container" ng-controller="activeCtrl">
 
     <div class="row">
         <div class="col-lg-7">
             one.
         </div>
         <div class="col-lg-5">
-            two.
+            {{pageInfo.selectedConnection | json}}
         </div>
     </div>
 
@@ -23,5 +20,6 @@
 
 {% endblock %}
 
-{% block header %}
+{% block footer %}
+<script src="/whoIsActive/module.js"></script>
 {% endblock %}
