@@ -15,9 +15,14 @@ angular
                 $scope.data = { };
 
                 socket = io.connect('/whoIsActive');
-                socket.on('whoIsActive', function (data) {
+                socket.on('whoIsActive', function (result) {
                     $scope.$apply(function() {
-                        $scope.data = data;
+                        if(result.error) {
+                            $scope.pageInfo.errorMessage = result.error;
+                        }
+                        else {
+                            $scope.data = result.data;
+                        }
                     });
                 });
 

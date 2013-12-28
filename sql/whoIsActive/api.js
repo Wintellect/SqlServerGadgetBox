@@ -1,6 +1,7 @@
 'use strict';
 
 var sqlExec = require('../../modules/sqlExecService.js');
+
 var WhoIsActiveSocketHandler = function(io, connectionId) {
 
     var index = 0,
@@ -17,23 +18,41 @@ var WhoIsActiveSocketHandler = function(io, connectionId) {
     };
 
     function emitData() {
-        var foundClient = false,
-            data = {
-                index: index += 1,
-                connectionId: connectionId
+        var sqlInfo = {
+                connectionId: connectionId,
+                source: "EXEC sp_WhoIsActive"
             };
-        io.of("/whoIsActive").clients().forEach(function(socket) {
-            if(socket.customData && socket.customData.connectionId === connectionId) {
-                socket.emit('whoIsActive', data);
-                foundClient = true;
+        sqlExec.readSqlData(sqlInfo, function(err, result) {
+
+            var foundClient = false,
+                foundError = false,
+                data = {
+                    index: index += 1,
+                    connectionId: connectionId,
+                    data: []
+                };
+
+            if (err) {
+                data.error = sqlExec.getError(err).error;
+                foundError = true;
+            }
+            else {
+                data.data = result[0];
+            }
+
+            io.of("/whoIsActive").clients().forEach(function(socket) {
+                if(socket.customData && socket.customData.connectionId === connectionId) {
+                    socket.emit('whoIsActive', data);
+                    foundClient = true;
+                }
+            });
+            if(foundClient && !foundError) {
+                setTimeout(emitData, 2500);
+            }
+            else {
+                isActive = false;
             }
         });
-        if(foundClient) {
-            setTimeout(emitData, 1000);
-        }
-        else {
-            isActive = false;
-        }
     }
 };
 
