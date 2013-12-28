@@ -1,1 +1,19 @@
-/* .css */
+
+.table-data {
+    overflow-x: auto;
+    margin: 0;
+    padding: 0;
+    width: 98%;
+}
+
+.table-data table {
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.table-data table td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 250px;
+}

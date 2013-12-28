@@ -9,10 +9,95 @@
 <div class="container" ng-controller="activeCtrl">
 
     <div class="row">
-        <div class="col-lg-7">
-            {{data | json}}
-        </div>
-        <div class="col-lg-5">
+        <div class="col-lg-12">
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#activeDetails" data-toggle="tab">Details</a></li>
+                <li><a href="#activeUsage" data-toggle="tab">Usage</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="activeDetails">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-data">
+                                <table class="table table-bordered table-striped table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>dd hh:mm:ss.mss</th>
+                                            <th>session_id</th>
+                                            <th>sql_text</th>
+                                            <th>login_name</th>
+                                            <th>wait_info</th>
+                                            <th>CPU</th>
+                                            <th>tempdb_allocations</th>
+                                            <th>tempdb_current</th>
+                                            <th>blocking_session_id</th>
+                                            <th>reads</th>
+                                            <th>writes</th>
+                                            <th>physical_reads</th>
+                                            <th>used_memory</th>
+                                            <th>status</th>
+                                            <th>open_tran_count</th>
+                                            <th>percent_complete</th>
+                                            <th>host_name</th>
+                                            <th>database_name</th>
+                                            <th>program_name</th>
+                                            <th>start_time</th>
+                                            <th>login_time</th>
+                                            <th>request_id</th>
+                                            <th>collection_time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="v in data track by v.session_id">
+                                            <td>{{v['dd hh:mm:ss.mss']}}</td>
+                                            <td>{{v['session_id']}}</td>
+                                            <td sg-bind-text="v['sql_text']"></td>
+                                            <td sg-bind-text="v['login_name']"></td>
+                                            <td>{{v['wait_info']}}</td>
+                                            <td>{{v['CPU']}}</td>
+                                            <td>{{v['tempdb_allocations']}}</td>
+                                            <td>{{v['tempdb_current']}}</td>
+                                            <td>{{v['blocking_session_id']}}</td>
+                                            <td>{{v['reads']}}</td>
+                                            <td>{{v['writes']}}</td>
+                                            <td>{{v['physical_reads']}}</td>
+                                            <td>{{v['used_memory']}}</td>
+                                            <td>{{v['status']}}</td>
+                                            <td>{{v['open_tran_count']}}</td>
+                                            <td>{{v['percent_complete']}}</td>
+                                            <td sg-bind-text="v['host_name']"></td>
+                                            <td sg-bind-text="v['database_name']"></td>
+                                            <td sg-bind-text="v['program_name']"></td>
+                                            <td>{{v['start_time']}}</td>
+                                            <td>{{v['login_time']}}</td>
+                                            <td>{{v['request_id']}}</td>
+                                            <td>{{v['collection_time']}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane" id="activeUsage">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                Usage
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
 
