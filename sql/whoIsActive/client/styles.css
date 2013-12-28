@@ -17,3 +17,23 @@
     white-space: nowrap;
     max-width: 250px;
 }
+
+#activeUsage div.row {
+    margin-top: 20px;
+    width: 98%;
+}
+
+.data-visualization {
+}
+
+.axis text,
+svg text {
+    font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}

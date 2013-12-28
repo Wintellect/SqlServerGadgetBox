@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-lg-12">
 
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs" id="contentTabs">
                 <li class="active"><a href="#activeDetails" data-toggle="tab">Details</a></li>
                 <li><a href="#activeUsage" data-toggle="tab">Usage</a></li>
             </ul>
@@ -88,9 +88,53 @@
                 <div class="tab-pane" id="activeUsage">
 
                     <div class="container">
+
                         <div class="row">
-                            <div class="col-lg-12">
-                                Usage
+                            <div class="col-lg-6">
+
+                                <form name="usageControlsForm" class="form-inline" role="form">
+                                    <div class="form-group">
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-model="usageType" value="cpu">CPU
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-model="usageType" value="tempdb">TempDB
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-model="usageType" value="rdwr">Reads/Writes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-model="usageType" value="mem">Memory
+                                        </label>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div class="col-lg-6">
+                                <span class="pull-right">{{barLegendText}}</span>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4">
+
+                                <h4>Sessions</h4>
+
+                                <ul id="usageSessionLegend" class="list-group">
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-8">
+
+                                <div class="data-visualization">
+                                    <sg-usage-visualization
+                                        visualization-data="data"
+                                        legend="#usageSessionLegend"
+                                        usage-type="usageType">
+                                    </sg-usage-visualization>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -109,4 +153,12 @@
 <script src="/bower/d3/d3.js" charset="utf-8"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/whoIsActive/module.js"></script>
+<script src="/whoIsActive/usageVisualization.js"></script>
+
+<script>
+//    $(function() {
+//        $('#contentTabs li:eq(1) a').tab('show')
+//    });
+</script>
+
 {% endblock %}

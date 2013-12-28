@@ -1,6 +1,6 @@
 
 angular
-    .module('main', ['common'])
+    .module('main', ['common', 'usageVisualization'])
     .controller(
         'activeCtrl',
         [
@@ -13,6 +13,8 @@ angular
                 $scope.pageInfo.title = "Who Is Active?";
 
                 $scope.data = { };
+                $scope.usageType = "rdwr";
+                $scope.barLegendText = "";
 
                 socket = io.connect('/whoIsActive');
                 socket.on('whoIsActive', function (result) {
@@ -30,6 +32,24 @@ angular
                     if(connection && connection.id) {
                         $scope.data = { };
                         socket.emit('setConnection', { connection: connection.id });
+                    }
+                });
+
+                $scope.$watch("usageType", function(usageType){
+                    $scope.barLegendText = "";
+                    switch(usageType) {
+                        case "cpu":
+                            $scope.barLegendText = "CPU";
+                            break;
+                        case "tempdb":
+                            $scope.barLegendText = "Allocations | Current";
+                            break;
+                        case "rdwr":
+                            $scope.barLegendText = "Physical Reads | Writes";
+                            break;
+                        case "mem":
+                            $scope.barLegendText = "Memory Usage";
+                            break;
                     }
                 });
             }
