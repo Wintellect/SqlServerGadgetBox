@@ -21,6 +21,14 @@ queries against Microsoft SQL Server.
 - [D3](https://github.com/mbostock/d3)
 - [Bootstrap](https://github.com/twbs/bootstrap)
 
+## Building
+- Pull source from GitHub repository ([https://github.com/Wintellect/SqlServerGadgetBox](https://github.com/Wintellect/SqlServerGadgetBox))
+- `chdir SqlServerGadgetBox`
+- `npm install` (to install NodeJS modules)
+- `bower install` (to install client modules)
+- edit `config\sql.config.json` to add connection strings to SQL servers.
+- `node WebServer.js` to run application.
+
 ## License
-- SQL Server Gadget Box is licensed under the permissive
+SQL Server Gadget Box is licensed under the permissive
 [MIT license](http://opensource.org/licenses/mit-license.html)
