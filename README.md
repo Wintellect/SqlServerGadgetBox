@@ -7,7 +7,7 @@ queries against Microsoft SQL Server.
 ## Technologies
 [NodeJS](http://nodejs.org/) modules used:
 - [Express](https://github.com/visionmedia/express)
-- [Lo-Dash](https://github.com/tjanczuk/edge)
+- [Lo-Dash](https://github.com/lodash/lodash)
 - [Async](https://github.com/caolan/async)
 - [Edge](https://github.com/tjanczuk/edge)
 - [Socket.io](https://github.com/learnboost/socket.io)
@@ -15,7 +15,7 @@ queries against Microsoft SQL Server.
 
 [Bower](https://github.com/bower/bower) modules used by the client:
 - [AngularJS](https://github.com/angular/angular.js)
-- [Lo-Dash](https://github.com/tjanczuk/edge)
+- [Lo-Dash](https://github.com/lodash/lodash)
 - [jQuery](https://github.com/jquery/jquery)
 - [Modernizr](https://github.com/Modernizr/Modernizr/)
 - [D3](https://github.com/mbostock/d3)
