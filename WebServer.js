@@ -1,6 +1,6 @@
 'use strict';
 
-var portNum = 8888,
+var portNum = 24123,
     _ = require('lodash'),
     express = require('express'),
     swig = require('swig'),

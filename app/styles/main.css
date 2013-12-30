@@ -21,3 +21,9 @@ code {
 .page-header .input-group {
     margin-top: 10px;
 }
+
+.wintellect-logo span {
+    font-size: 18px;
+    padding-right: 20px;
+    vertical-align: bottom;
+}
