@@ -8,8 +8,9 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', ['server']);
     grunt.registerTask('server', function () {
-        var done = this.async();
+        var done = this.async(), srv;
         grunt.log.writeln('Starting SQL Tools Web Server.');
-        require('./WebServer.js')().on('close', done);
+        srv = require('./WebServer.js');
+        srv.onClose = done;
     });
 };

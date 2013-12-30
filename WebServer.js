@@ -11,7 +11,12 @@ var portNum = 8888,
     apiList = [
         "./api/gadgetCatalog.js",
         "./api/connections.js"
-    ];
+    ],
+    exports = {
+        onClose: _.noop
+    };
+
+module.exports = exports;
 
 // Changing swig variables to {- ... -} instead of {{ ... }} since AngularJS uses these characters.
 swig.setDefaults({
@@ -88,7 +93,7 @@ gadgetCatalogService
             server.listen(app.get('port'), function() {
                 console.log("Listening on port " + app.get('port'));
                 console.log("http://localhost:" + app.get('port') + "/");
-            });
+            }).on('close', exports.onClose);
 
             _.each(handlerList, function(handler) {
                 if(_.isFunction(handler.initializeSockets)) {
