@@ -44,6 +44,9 @@ angular
                         case "tempdb":
                             $scope.barLegendText = "Allocations | Current";
                             break;
+                        case "reads":
+                            $scope.barLegendText = "Reads";
+                            break;
                         case "rdwr":
                             $scope.barLegendText = "Physical Reads | Writes";
                             break;

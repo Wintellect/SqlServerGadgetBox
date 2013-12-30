@@ -96,6 +96,21 @@ angular
                                         }
                                     });
                                     break;
+                                case "reads":
+                                    renderVisualization({
+                                        getMaxValues: function(d) {
+                                            return d.reads;
+                                        },
+                                        barCount: 1,
+                                        getBarValue: function(idx) {
+                                            return function(d) {
+                                                switch(idx) {
+                                                    case 0: return d.reads;
+                                                }
+                                            }
+                                        }
+                                    });
+                                    break;
                                 case "rdwr":
                                     renderVisualization({
                                         getMaxValues: function(d) {
