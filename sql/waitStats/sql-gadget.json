@@ -1,0 +1,7 @@
+{
+    "name": "Wait Stats Tool",
+    "description": "description.html",
+    "apiList": [
+        "api.js"
+    ]
+}
