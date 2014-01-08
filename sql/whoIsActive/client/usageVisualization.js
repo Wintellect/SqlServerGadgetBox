@@ -14,6 +14,18 @@ angular
                         var vx = 1000, vy = 700,
                             currentData = [],
                             usageType = attrs.usageType || "rdwr",
+                            getColor = function() {
+                                var colors = d3.scale.category20(),
+                                    nextColor = 0,
+                                    colorMap = {};
+                                return function(id) {
+                                    if(_.isUndefined(colorMap[id])) {
+                                        colorMap[id] = colors(nextColor);
+                                        nextColor = (nextColor + 1) % 20;
+                                    }
+                                    return colorMap[id];
+                                };
+                            }(),
                             svg;
 
                         scope.$watch(attrs.visualizationData, function(data) {
@@ -161,7 +173,7 @@ angular
                             var margin = {
                                     top: 20,
                                     bottom: 20,
-                                    left: 50,
+                                    left: 80,
                                     right: 20
                                 },
                                 width = vx - (margin.left + margin.right),
@@ -205,7 +217,6 @@ angular
                                     "translate(", margin.left, ",", margin.top, ")"
                                 ].join(""));
 
-                            var colors = d3.scale.category20();
 
                             var barItems = root.selectAll("g")
                                 .data(currentData, function(d) { return d.id; });
@@ -229,7 +240,7 @@ angular
                                                 return height - yScale(getValue(d));
                                             })
                                             .attr("fill", function(d, i) {
-                                                return colors(i);
+                                                return getColor(d.id);
                                             });
                                         group
                                             .append("text")
@@ -264,13 +275,12 @@ angular
                                         d.user.name,
                                         " (", d.user.database, ")"
                                     ].join("");
-                                },
-                                colors = d3.scale.category20();
+                                };
 
                             legendItems
                                 .text(legendText)
                                 .style("background-color", function(d,i){
-                                    return colors(i);
+                                    return getColor(d.id);
                                 })
                                 .attr("title", function(d){
                                     return d.sqlTxt;
@@ -282,7 +292,7 @@ angular
                                 .classed("list-group-item", true)
                                 .text(legendText)
                                 .style("background-color", function(d,i){
-                                    return colors(i);
+                                    return getColor(d.id);
                                 })
                                 .attr("title", function(d){
                                     return d.sqlTxt;
