@@ -160,12 +160,14 @@ angular
 
                             var margin = {
                                     top: 20,
-                                    bottom: 40,
-                                    left: 100,
+                                    bottom: 20,
+                                    left: 50,
                                     right: 20
                                 },
-                                maxY, yScale, yScaleRev,
-                                yAxis, xScale, xAxis,
+                                width = vx - (margin.left + margin.right),
+                                height = vy - (margin.top + margin.bottom),
+                                maxY, yScale, yAxis,
+                                xScale, xAxis,
                                 i;
 
                             clearAndInitializeVisualization();
@@ -177,47 +179,36 @@ angular
                             }();
                             yScale = d3.scale.linear()
                                 .domain([0, maxY])
-                                .range([margin.top, vy - margin.bottom]);
-                            yScaleRev = d3.scale.linear()
-                                .domain([0, maxY])
-                                .range([vy - margin.bottom, margin.top]);
+                                .range([height, 0]);
 
-                            yAxis = d3.svg.axis().scale(yScaleRev).orient("left");
+                            yAxis = d3.svg.axis().scale(yScale).orient("left");
                             svg.append("g")
                                 .attr("class", "y axis")
                                 .attr("transform", [
-                                    "translate(",
-                                    margin.left,
-                                    ",",
-                                    0,
-                                    ")"
+                                    "translate(", margin.left, ",", margin.top, ")"
                                 ].join(""))
                                 .call(yAxis);
 
                             xScale = d3.scale.ordinal()
-                                .domain(_.map(currentData, function(d){
-                                    return d.id;
-                                }))
-                                .rangeBands([margin.left, vx - margin.right], 0.1);
+                                .domain(_.map(currentData, function(d){ return d.id; }))
+                                .rangeBands([0, width], 0.1);
                             xAxis = d3.svg.axis().scale(xScale).orient("bottom");
-
                             svg.append("g")
                                 .attr("class", "x axis")
                                 .attr("transform", [
-                                    "translate(",
-                                    0,
-                                    ",",
-                                    vy - margin.bottom,
-                                    ")"
+                                    "translate(", margin.left, ",", vy - margin.bottom, ")"
                                 ].join(""))
                                 .call(xAxis);
 
-                            var bars = svg.append("g").selectAll("g"),
-                                colors = d3.scale.category20();
+                            var root = svg.append("g")
+                                .attr("transform", [
+                                    "translate(", margin.left, ",", margin.top, ")"
+                                ].join(""));
 
-                            var barItems = bars.data(currentData, function(d) {
-                                return d.id;
-                            });
+                            var colors = d3.scale.category20();
+
+                            var barItems = root.selectAll("g")
+                                .data(currentData, function(d) { return d.id; });
 
                             var barGroup = barItems.enter().append("g");
 
@@ -232,10 +223,10 @@ angular
                                             })
                                             .attr("width", barWidth)
                                             .attr("y", function(d){
-                                                return yScale(maxY) - yScale(getValue(d));
+                                                return yScale(getValue(d));
                                             })
                                             .attr("height", function(d){
-                                                return yScale(getValue(d));
+                                                return height - yScale(getValue(d));
                                             })
                                             .attr("fill", function(d, i) {
                                                 return colors(i);
@@ -246,7 +237,7 @@ angular
                                                 return xScale(d.id) + (barWidth*idx) + (barWidth/2);
                                             })
                                             .attr("y", function(d){
-                                                return yScale(maxY) - yScale(getValue(d));
+                                                return yScale(getValue(d));
                                             })
                                             .attr("dy", "-0.20em")
                                             .style("text-anchor", "middle")
