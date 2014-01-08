@@ -1,4 +1,10 @@
 
+li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .axis text,
 svg text {
     font: 10px sans-serif;
@@ -9,4 +15,16 @@ svg text {
     fill: none;
     stroke: #000;
     shape-rendering: crispEdges;
+}
+
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+}
+
+.border-box {
+    fill: none;
+    stroke: #DDD;
+    stroke-width: 1px;
 }

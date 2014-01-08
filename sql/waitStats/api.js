@@ -77,7 +77,7 @@ var WaitStatsSocketHandler = function(io, connectionId) {
                 }
             });
             if(foundClient && !foundError) {
-                setTimeout(emitData, 5000);
+                setTimeout(emitData, 2500);
             }
             else {
                 isActive = false;

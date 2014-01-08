@@ -9,8 +9,27 @@
 <div class="container" ng-controller="waitStatsCtrl">
 
     <div class="row">
-        <div class="col-lg-12">
-            {{data | json}}
+        <div class="col-lg-3">
+
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <h4>Wait Types</h4>
+
+                    <ul id="waitsLegend" class="list-group">
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-9">
+
+            <sg-wait-stats-visualization
+                    visualization-data="data"
+                    legend="#waitsLegend">
+            </sg-wait-stats-visualization>
+
         </div>
     </div>
 
