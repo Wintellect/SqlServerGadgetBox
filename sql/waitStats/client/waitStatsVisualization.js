@@ -4,7 +4,8 @@ angular
     .directive(
         'sgWaitStatsVisualization',
         [
-            function() {
+            '$log',
+            function($log) {
 
                 return {
                     restrict: 'E',
@@ -16,11 +17,11 @@ angular
                             currentData = {},
                             maxCount = 20,
                             colors = d3.scale.category20(),
-                            maxWaitTime, svg, renderFxn;
+                            svg, renderFxn;
 
                         scope.$watch(attrs.visualizationData, function(data) {
                             if(data && data.stats) {
-                                //console.log(JSON.stringify(data, null, '  '));
+                                //$log.info(JSON.stringify(data, null, '  '));
                                 mergeData(data);
                                 colors.domain(waitTypes);
                                 updateVisualization();
@@ -33,7 +34,12 @@ angular
 
                             _.each(waitTypes, function(wt){
 
-                                var lst = currentData[wt] = currentData[wt] || [],
+                                var dataItem = currentData[wt] = currentData[wt] || {
+                                        waitType: wt,
+                                        values: [],
+                                        isSelected: true
+                                    },
+                                    lst = dataItem.values,
                                     itm = _.find(data.stats, function(s){
                                         return s.wait_type === wt;
                                     });
@@ -46,8 +52,6 @@ angular
                                     lst.splice(0, 1);
                                 }
                             });
-
-                            maxWaitTime = d3.max(d3.values(currentData), function(d) { return d3.max(d); });
                         }
 
                         function updateVisualization() {
@@ -110,26 +114,30 @@ angular
 
                             return function() {
 
+                                var dataSet = _.filter(_.values(currentData), function(d) { return d.isSelected; });
+                                var maxWaitTime = d3.max(dataSet, function(d) { return d3.max(d.values); });
+
                                 yScale.domain([0, maxWaitTime + (maxWaitTime * 0.1)]);
 
-                                yAxisRoot.transition()
-                                    .duration(0.5)
-                                    .ease("linear")
-                                    .call(yAxis);
+                                yAxisRoot.call(yAxis);
 
                                 var pathGroup = root.selectAll("g.pathGroup")
-                                    .data(d3.entries(currentData), function (d){ return d.key; });
+                                    .data(d3.values(dataSet), function (d){ return d.waitType; });
+
                                 pathGroup.enter()
                                     .append("g")
                                     .attr("class", "pathGroup")
                                     .append("path")
                                     .attr("class", "line")
-                                    .style("stroke", function(d) { return colors(d.key); });
+                                    .style("stroke", function(d) { return colors(d.waitType); });
 
                                 pathGroup.select("path")
                                     .attr("d", function(d) {
-                                        return lineGen(d.value);
+                                        return lineGen(d.values);
                                     });
+
+                                pathGroup.exit()
+                                    .remove();
                             };
                         }
 
@@ -147,10 +155,16 @@ angular
                             item.append("input")
                                 .attr("type", "checkbox")
                                 .attr("checked", "")
+                                .on("change", function(d){
+                                    $log.info("Show " + d + ": " + this.checked);
+                                    currentData[d].isSelected = this.checked;
+                                    updateVisualization();
+                                });
                             item.append("span");
 
                             legendItems
                                 .select("span")
+                                .attr("title", function(d) { return d; })
                                 .text(function(d) { return " " + d; })
                                 .style("color", function(d){ return colors(d); });
                         }
